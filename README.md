@@ -24,6 +24,18 @@ This is a web app where people of IIT Jodhpur can post questions and ...
 To be Updated
 
 # Screenshots
+### Login/SignUp
+![Screenshot 2024-01-07 192518](https://github.com/MagnusCarlsen26/Forum-For-IITJ/assets/102711133/104fada9-4162-490e-9275-ac2da701280c)
+![Screenshot 2024-01-07 192920](https://github.com/MagnusCarlsen26/Forum-For-IITJ/assets/102711133/864c840a-9a82-4255-badf-e3fc28c729cd)
+![Screenshot 2024-01-07 192959](https://github.com/MagnusCarlsen26/Forum-For-IITJ/assets/102711133/f125aa62-a9e5-4d24-98ef-d692c2efe2db)
+
+### Feed
+![Screenshot 2024-01-07 193030](https://github.com/MagnusCarlsen26/Forum-For-IITJ/assets/102711133/d6f80614-3308-418f-961a-9171a44c24e5)
+![Screenshot 2024-01-07 193346](https://github.com/MagnusCarlsen26/Forum-For-IITJ/assets/102711133/7c9e8867-31d2-4778-bc54-c93d713efac8)
+![Screenshot 2024-01-07 200250](https://github.com/MagnusCarlsen26/Forum-For-IITJ/assets/102711133/31bb4b0f-7f68-436f-8503-2973af60427f)
+
+### Profile
+![image](https://github.com/MagnusCarlsen26/Forum-For-IITJ/assets/102711133/814cf04c-d935-4920-886e-f654f091cf64)
 
 ## API Reference
 
