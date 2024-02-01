@@ -1,6 +1,6 @@
 # IITJ Forum
 
-This is a web app where people of IIT Jodhpur can post questions and ...
+This is a web app where people of IIT Jodhpur can post questions , answer and comment to other people's question.
 
 ## Table of Contents
 
