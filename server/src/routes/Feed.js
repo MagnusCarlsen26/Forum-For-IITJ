@@ -102,7 +102,7 @@ router.post( '/likeDislikeFetch',async(req,res) => {
     res.json({like:-1,dislike:-1}) 
   }    
 })
-
+ 
 router.post( '/likeDislikeUpdateUser' , async(req,res) =>  {
   try {
     const data = req.body;
@@ -143,6 +143,12 @@ router.post('/likeDislikeUpdatePost',async(req,res) => {
   }
 })
 
-
+router.post('/commentMetaData',async(req,res) => {
+    const {answerID} = req.body
+    console.log(answerID)
+    const comments = await CommentModel.find({answerID})
+    // console.log(comments.slice(0,5))
+    res.json({comments : comments.slice(0,5) , size:comments.length})
+}) 
 
 export default router 

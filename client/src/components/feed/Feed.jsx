@@ -62,8 +62,7 @@ export default function Feed() {
   </div>
     </div>)
   }
-  else{
-    const data = questions.map( question => <Questions data={question} /> )
+  else{ 
     return (
       <div className="flex-wrapper feed-page">
         <section
@@ -82,7 +81,7 @@ export default function Feed() {
             <Row>
             <Sidebar />
               <Col xs={6}>
-                {data}
+                {questions.map( question => <Questions data={question} /> )}
               </Col>
               <Col className='ms-5'>
                 <Card style={{ position: 'fixed', width: '30%',color:'#d7dadc', backgroundColor:'#1d1f20'}}>

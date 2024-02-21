@@ -118,9 +118,11 @@ function Comment({ comment, replies, setType }) {
         <Button variant={`outline-secondary${like.dislike === 1 ? ' active' : ''}`} size="sm" className="m-1" onClick={onDisLike}>
     {like.dislike !== 1 ? svg.DislikeFilled : svg.DislikeNotFilled} {comment.dislikes}
             </Button>
-      <Button variant="outline-primary" size="sm" className='m-1' onClick={() => setType({ type: 'Reply', id: comment._id })}>
+      {
+        setType ?       <Button variant="outline-primary" size="sm" className='m-1' onClick={() => setType({ type: 'Reply', id: comment._id })}>
         <BsChat /> Reply
-      </Button>
+      </Button> : ""
+      }
       {replies.map(reply => <Reply reply={reply} />)}
     </div>
   );

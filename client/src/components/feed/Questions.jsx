@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Form } from 'react-bootstrap';
 import { BsChat } from 'react-icons/bs';
+import { FaRegCommentDots } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import svg from './../../svg';
 import './../../css/enter/enter.css';
+import axios from 'axios'
+import Comment from './Comment';
 const formattedDateTime = (dateTime) => {
   return new Date(dateTime).toLocaleString('en-GB', {
     day: 'numeric',
@@ -24,9 +27,7 @@ function Questions({ data }) {
   const handleReadMore = (postId) => {
     setExpandedPosts((prev) => [...prev, postId]);
   }
-
   
-
   const handleLike = () => {
     setLikeStatus((prevStatus) => (prevStatus === 'NotFilled' ? 'Filled' : 'NotFilled'));
   };
@@ -34,35 +35,32 @@ function Questions({ data }) {
     setDislikeStatus((prevStatus) => (prevStatus === 'NotFilled' ? 'Filled' : 'NotFilled'));
   };
 
+  const [commentMeta,setcommentMeta] = React.useState([])
+
+  useEffect( () => {
+    try{
+      const FetchData = async() => {
+          const response =  await axios.post('http://localhost:5000/feed/commentMetaData',{answerID:data?.answer?._id || ""}) 
+          setcommentMeta(response.data)
+      }
+      FetchData()
+    }catch(err){
+      console.log(err)
+    }
+  },[data])
   return (
     <div className="feed-page" >
       <Card style={{backgroundColor:'#1d1f20',color:'#d7dadc'}}>
         <Card.Body>
-          <h4
-            className="questionheading"
-            style={{ border: 'none', cursor: 'pointer' }}
-            onClick={() => {
-              navigate('/viewQuestion', { state: data?.question?._id });
-            }}
-          >
+          <h4 className="questionheading" style={{ border: 'none', cursor: 'pointer' }} onClick={() => {navigate('/viewQuestion', { state: data?.question?._id });}} >
             {data?.question?.question || ''}
           </h4>
           <div className="user-info">
-            <img
-              src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg"
-              alt="User Avatar"
-              className="rounded-circle me-2"
-              style={{ width: '30px', height: '30px' }}
-            />
-            <Link to="/profile" className='text-white-50' style={{ textDecoration: 'none'}}>
-              {data?.question?.author || ''} | {formattedDateTime(data?.question?.time) || ''}
-            </Link>{' '}
+            <img src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="User Avatar" className="rounded-circle me-2" style={{ width: '30px', height: '30px' }} />
+            <Link to="/profile" className='text-white-50' style={{ textDecoration: 'none'}}>{data?.question?.author || ''} | {formattedDateTime(data?.question?.time) || ''}</Link>{' '}
           </div>
           <hr />
-          {
-          
-
-          typeof data?.answer?.author === 'undefined'? <p>No answers yet</p> :
+          {typeof data?.answer?.author === 'undefined'? <p>No answers yet</p> :
           <>
           <p>
             <img
@@ -83,20 +81,21 @@ function Questions({ data }) {
             </Button>
           )}
           <div className="d-flex align-items-center mt-2">
-            <Button
-              variant={`outline-danger${likeStatus === 'Filled' ? ' active' : ''}`}
-              size="sm"
-              className="m-1"
-              onClick={handleLike}
-            >
+            <Button variant={`outline-danger${likeStatus === 'Filled' ? ' active' : ''}`} size="sm" className="m-1" onClick={handleLike} >
               {likeStatus === 'Filled' ? svg.LikeFilled : svg.LikeNotFilled} {data?.answer?.likes }
             </Button>
             <Button variant={`outline-secondary${dislikeStatus === 'Filled' ? ' active' : ''}`} size="sm" className="m-1" onClick={handleDisLike}>
               {dislikeStatus === 'Filled' ? svg.DislikeFilled : svg.DislikeNotFilled} {data?.answer?.dislikes }
             </Button>
+            <Button size="sm" className="m-1" variant='outline-success'> {commentMeta.size} <FaRegCommentDots /></Button>
+
           </div>
           </>
 }
+        <br></br>
+        <h6>Comments</h6>
+        {commentMeta.comments?.map( x => <Comment comment={x} replies={[]} /> )}
+        {/* <Comment comment = {commentMeta.} /> */}
         </Card.Body>
       </Card>
       <br />
