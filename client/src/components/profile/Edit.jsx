@@ -1,101 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import Input from './../enter/Input';
-import ReactCrop from 'react-image-crop';
-import 'react-image-crop/dist/ReactCrop.css';
-import bg from './../../img/Login/bg-login.jpg';
-import { Container, Row, Col, Card, Nav, Navbar, NavDropdown, Button, Form } from 'react-bootstrap';
-import { FaFacebook, FaTwitter, FaGoogle, FaInstagram, FaLinkedin, FaLinkedinIn, FaGithub } from 'react-icons/fa';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import Input from './../enter/Input'
+import ReactCrop from 'react-image-crop'
+import 'react-image-crop/dist/ReactCrop.css'
+import bg from './../../img/Login/bg-login.jpg'
+import { Container, Row, Col, Card, Nav, Navbar, NavDropdown, Button, Form } from 'react-bootstrap'
+import { FaFacebook, FaTwitter, FaGoogle, FaInstagram, FaLinkedin, FaLinkedinIn, FaGithub } from 'react-icons/fa'
+import axios from 'axios'
+
 const EditProfile = ({ setIsEdit }) => {
-  const [username, setUsername] = useState('');
-  const [year, setYear] = useState('');
+  const [username, setUsername] = useState('')
+  const [year, setYear] = useState('')
   const [program, setProgram] = useState('')
-  const [Branch, setBranch] = useState('');
-  const [linkedIn, setLinkedIn] = useState('');
-  const [gitHub, setgithub] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [phone, setPhone] = useState('');
-  const [age, setAge] = useState('');
-  const [skills, setSkills] = useState('');
-  const [rollNo, setRollNo] = useState('');
-  const [hobbies, setHobbies] = useState('');
-  const [aboutMe, setAboutMe] = useState('');
-  const [profilePicture, setProfilePicture] = useState('');
-  const [crop, setCrop] = useState({ unit: '%', width: 30, aspect: 1 / 1 });
-  const [completedCrop, setCompletedCrop] = useState(null);
-  const [bannerPicture, setBannerPicture] = useState('');
-  const [bannerCrop, setBannerCrop] = useState({ unit: '%', width: 30, aspect: 3 / 1 });
-  const [completedBannerCrop, setCompletedBannerCrop] = useState(null);
+  const [Branch, setBranch] = useState('')
+  const [linkedIn, setLinkedIn] = useState('')
+  const [gitHub, setgithub] = useState('')
+  const [instagram, setInstagram] = useState('')
+  const [phone, setPhone] = useState('')
+  const [age, setAge] = useState('')
+  const [skills, setSkills] = useState('')
+  const [rollNo, setRollNo] = useState('')
+  const [hobbies, setHobbies] = useState('')
+  const [aboutMe, setAboutMe] = useState('')
+  const [profilePicture, setProfilePicture] = useState('')
+  const [crop, setCrop] = useState({ unit: '%', width: 30, aspect: 1 / 1 })
+  const [completedCrop, setCompletedCrop] = useState(null)
+  const [bannerPicture, setBannerPicture] = useState('')
+  const [bannerCrop, setBannerCrop] = useState({ unit: '%', width: 30, aspect: 3 / 1 })
+  const [completedBannerCrop, setCompletedBannerCrop] = useState(null)
   const [email,setEmail] = useState('')
 
   useEffect(() => {
-    const storedData = localStorage.getItem('email');
+    const storedData = localStorage.getItem('email')
     if (storedData) {
-      setEmail(storedData);
+      setEmail(storedData)
     }
   },[])
   const validateFile = (file, maxSize, allowedFormats) => {
-    const fileSize = file.size / 1024 / 1024; // in MB
-    const fileType = file.type;
+    const fileSize = file.size / 1024 / 1024 // in MB
+    const fileType = file.type
 
     if (fileSize > maxSize) {
-      alert(`File size exceeds ${maxSize}MB limit.`);
-      console.log("sjbxjajxhjvhsvhvhvx")
-      return false;
+      alert(`File size exceeds ${maxSize}MB limit.`)
+      return false
     }
 
-    const allowed = allowedFormats.includes(fileType);
+    const allowed = allowedFormats.includes(fileType)
     if (!allowed) {
-      alert(`Invalid file format. Please choose a ${allowedFormats.join('/')} file.`);
-      return false;
+      alert(`Invalid file format. Please choose a ${allowedFormats.join('/')} file.`)
+      return false
     }
 
-    return true;
-  };
+    return true
+  }
 
   const onSelectFile = (e, isBanner) => {
     if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
+      const file = e.target.files[0]
 
       // Check if it's a valid file
       if (!validateFile(file, 2, ['image/jpeg', 'image/png'])) {
-        return;
+        return
       }
 
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = () => {
         if (isBanner) {
-          setBannerPicture(reader.result);
+          setBannerPicture(reader.result)
         } else {
-          setProfilePicture(reader.result);
+          setProfilePicture(reader.result)
         }
-      };
-      reader.readAsDataURL(file);
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const onCropChange = (crop, isBanner) => {
     if (isBanner) {
-      setBannerCrop(crop);
+      setBannerCrop(crop)
     } else {
-      setCrop(crop);
+      setCrop(crop)
     }
-  };
+  }
 
   const onCropComplete = (crop, isBanner) => {
     if (isBanner) {
-      setCompletedBannerCrop(crop);
+      setCompletedBannerCrop(crop)
     } else {
-      setCompletedCrop(crop);
+      setCompletedCrop(crop)
     }
-  };
+  }
 
   const handleProgramChange = (e) => {
-    setProgram(e.target.value);
-  };
+    setProgram(e.target.value)
+  }
   const handleBranchChange = (e) => {
-    setBranch(e.target.value);
-  };
+    setBranch(e.target.value)
+  }
 
   const handleSave = async () => {
     const bannerData = completedBannerCrop
@@ -105,7 +105,7 @@ const EditProfile = ({ setIsEdit }) => {
           width: Math.round(completedBannerCrop.width),
           height: Math.round(completedBannerCrop.height),
         }
-      : null;
+      : null
     const profileData = {
       username,
       year,
@@ -124,15 +124,14 @@ const EditProfile = ({ setIsEdit }) => {
       profilePicture,
       bannerPicture,
       bannerCrop: bannerData,
-    };
-    console.log(profileData)
+    }
     try{
       const response = await axios.post("http://localhost:5000/profile/update",profileData)
     }catch(err){
         //Handle error
     }
     setIsEdit( prev => prev+1 )
-  };
+  }
 
   return (
     <div
@@ -340,7 +339,7 @@ const EditProfile = ({ setIsEdit }) => {
       </Container>
     </div>
 
-  );
-};
+  )
+}
 
-export default EditProfile;
+export default EditProfile

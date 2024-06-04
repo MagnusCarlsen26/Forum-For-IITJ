@@ -94,7 +94,6 @@ router.post( '/likeDislikeFetch',async(req,res) => {
   const { id , author } = req.body
 
   const data = await LikeDislikeModel.findOne({id,author}, { like:1 , dislike : 1 })
-  console.log(data) 
   if ( data ) {res.json(data)}
   else {  
     const newData = new LikeDislikeModel({id,author,like:-1,dislike:-1})
@@ -106,7 +105,6 @@ router.post( '/likeDislikeFetch',async(req,res) => {
 router.post( '/likeDislikeUpdateUser' , async(req,res) =>  {
   try {
     const data = req.body;
-    console.log(data,"update user")
     const filter = { id: data.id, author: data.user };
     const update = { $set: { like: data.like, dislike: data.dislike } };
     const options = { upsert: true };
@@ -129,7 +127,6 @@ router.post('/likeDislikeUpdatePost',async(req,res) => {
   try{
     const { type , id ,likes , dislikes } = req.body;
     var result = "" 
-    console.log(req.body,"updatePOSt")
     if (type == "answer") {
       result = await AnswerModel.updateOne({_id:id }, {$set:{likes,dislikes}});
     }else if (type == "comment") {
@@ -145,9 +142,7 @@ router.post('/likeDislikeUpdatePost',async(req,res) => {
 
 router.post('/commentMetaData',async(req,res) => {
     const {answerID} = req.body
-    console.log(answerID)
     const comments = await CommentModel.find({answerID})
-    // console.log(comments.slice(0,5))
     res.json({comments : comments.slice(0,5) , size:comments.length})
 }) 
 

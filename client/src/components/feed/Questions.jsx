@@ -8,15 +8,9 @@ import svg from './../../svg';
 import './../../css/enter/enter.css';
 import axios from 'axios'
 import Comment from './Comment';
-const formattedDateTime = (dateTime) => {
-  return new Date(dateTime).toLocaleString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+import formattedDateTime from './../../utils/formattedDateTime'
+import UserAvatar from './../../utils/UserAvatar'
+
 function Questions({ data }) {
   const navigate = useNavigate();
   const [expandedPosts, setExpandedPosts] = useState([]);
@@ -24,6 +18,7 @@ function Questions({ data }) {
   const [likeStatus, setLikeStatus] = useState('NotFilled'); 
   const [dislikeStatus, setDislikeStatus] = useState('NotFilled');
   const [pfp,setPfp] = useState('')
+  
   const handleReadMore = (postId) => {
     setExpandedPosts((prev) => [...prev, postId]);
   }
@@ -45,7 +40,7 @@ function Questions({ data }) {
       }
       FetchData()
     }catch(err){
-      console.log(err)
+      console.error(err)
     }
   },[data])
   return (
@@ -56,19 +51,14 @@ function Questions({ data }) {
             {data?.question?.question || ''}
           </h4>
           <div className="user-info">
-            <img src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg" alt="User Avatar" className="rounded-circle me-2" style={{ width: '30px', height: '30px' }} />
+            <UserAvatar pfp={pfp} />
             <Link to="/profile" className='text-white-50' style={{ textDecoration: 'none'}}>{data?.question?.author || ''} | {formattedDateTime(data?.question?.time) || ''}</Link>{' '}
           </div>
           <hr />
           {typeof data?.answer?.author === 'undefined'? <p>No answers yet</p> :
           <>
           <p>
-            <img
-              src="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg"
-              alt="User Avatar"
-              className="rounded-circle me-2"
-              style={{ width: '30px', height: '30px' }}
-            />
+            <UserAvatar pfp={pfp} />
             <Link to="/profile" className='text-white-50' style={{ textDecoration: 'none'}}>
               {data?.answer?.author || ''} | {formattedDateTime(data?.answer?.time) || ''}
             </Link>{' '}

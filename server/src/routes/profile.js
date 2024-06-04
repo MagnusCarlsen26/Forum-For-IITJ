@@ -8,7 +8,6 @@ router.post('/update', async (req, res) => {
         const userData = req.body;
         const email = userData.email;
         const existingProfile = await ProfileModel.findOne({ email });
-        console.log(userData)
         if (existingProfile) {
             const updateObject = {};
 
@@ -24,14 +23,11 @@ router.post('/update', async (req, res) => {
                 await existingProfile.save();
 
                 res.json('OK');
-                // console.log('Profile updated');
             } else {
                 res.status(400).json('No valid fields to update');
-                // console.log('No valid fields to update');
             }
         } else {
             res.status(404).json('Profile not found');
-            // console.log('Profile not found');
         }
     } catch (err) {
         console.error(err);
@@ -41,7 +37,6 @@ router.post('/update', async (req, res) => {
 
 router.post('/getUser',async (req,res) => {
     const { email } = req.body
-    console.log(email)
     const Profile = await ProfileModel.findOne({ email });
     if (Profile) {
         res.json(Profile)

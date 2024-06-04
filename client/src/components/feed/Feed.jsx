@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import './../../css/enter/enter.css'
+import React, { useEffect, useState } from 'react'
 import './feed.css'
-import { Container, Row, Col, Card, Nav, NavDropdown, Button, Form } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-import Questions from './Questions';
-import Footer from './../../Footer';
-import Navbar from './../../Navbar';
-import Sidebar from './Sidebar';
-
+import { Container, Row, Col, Card, Nav, NavDropdown, Button, Form } from 'react-bootstrap'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+import Questions from './Questions'
+import Sidebar from './Sidebar'
+import LoadingWave from './../../utils/LoadingWave'
+import formattedDateTime from './../../utils/formattedDateTime'
+  
 export default function Feed() {
-  const location = useLocation();
-  const category = location.state;
+  const location = useLocation()
+  const category = location.state
   const [email,setEmail] = useState("")
+  const [questions,setQuestions] = React.useState([])
+  
   const handleAskQuestionSubmit = async(e) => {
     e.preventDefault()
-    const time = new Date();
-    const question = e.target.elements.questionTextarea.value;
+    const time = new Date()
+    const question = e.target.elements.questionTextarea.value
     if (question === '') return
     try{
       const response = await axios.post('http://localhost:5000/feed/question',{
@@ -26,41 +27,27 @@ export default function Feed() {
         category
       })
     }catch(err){
-        console.log(err)
+        console.error(err)
     }
-  };
-  const [questions,setQuestions] = React.useState([])
+  }
   React.useLayoutEffect( () => {
-    const storedData = localStorage.getItem('email');
+    const storedData = localStorage.getItem('email')
     if (storedData) {
-      setEmail(storedData);
+      setEmail(storedData)
     }
       const FetchData = async () => {
         try {
-          const response = await axios.post('http://localhost:5000/feed/viewAllQuestions', { category });
-          setQuestions(response.data);
+          const response = await axios.post('http://localhost:5000/feed/viewAllQuestions', { category })
+          setQuestions(response.data)
         } catch (error) {
-          console.error('Error fetching data:', error);
+          console.error('Error fetching data:', error)
         }
       }
       FetchData()
   } ,[])
 
   if (questions.length === 0) { 
-    return (<div className='loading-page'>
-      <div class="center">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
-    </div>)
+    return <LoadingWave/>
   }
   else{ 
     return (
@@ -75,8 +62,6 @@ export default function Feed() {
             paddingBottom: '16px'
           }}
         >
-
-          <Navbar />
           <Container className="py-5 h-100 mt-3 scrollbarfeed" style={{ overflow: 'auto' }}>
             <Row>
             <Sidebar />
@@ -85,7 +70,7 @@ export default function Feed() {
               </Col>
               <Col className='ms-5'>
                 <Card style={{ position: 'fixed', width: '30%',color:'#d7dadc', backgroundColor:'#1d1f20'}}>
-                  <Card.Body style={{}}>
+                  <Card.Body>
                     <Form onSubmit={(e) => handleAskQuestionSubmit(e)}>
                       <Form.Group controlId="questionTextarea">
                         <Form.Label>Your Question:</Form.Label>
@@ -101,10 +86,7 @@ export default function Feed() {
             </Row>
           </Container>
         </section>
-
-          <Footer/>
-
       </div>
-    );
+    )
   }
 }

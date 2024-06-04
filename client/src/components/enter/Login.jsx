@@ -31,12 +31,11 @@ const Login = () => {
             }
             else{
                 localStorage.setItem('email',email)
-                console.log(email)
                 navigate('/success')
             }
         }
         catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
     return (
