@@ -1,109 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Nav, NavDropdown, Button, Form } from 'react-bootstrap';
-import { BiPencil, BiSearch, BiDislike } from 'react-icons/bi';
-import { FaFacebookF, FaTwitter, FaGoogle, FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa';
-import { BsHeart, BsChat, BsPerson } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-import bg from './../../img/Login/bg-login.jpg';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-import FullQuestion from './Answer';
-import './../../css/enter/enter.css'
-import Navbar from '../../Navbar'
-import Footer from '../../Footer'
-import Sidebar from './Sidebar';
-const formattedDateTime = (dateTime) => {
-  return new Date(dateTime).toLocaleString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+import React, { useEffect, useState } from 'react'
+import { Container, Row, Col, Card, Nav, NavDropdown, Button, Form } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+import FullQuestion from './Answer'
+import Sidebar from './Sidebar'
+import formattedDateTime from './../../utils/formattedDateTime'
+import LoadingWave from './../../utils/LoadingWave'
+import UserAvatar from './../../utils/UserAvatar'
+
 export default function Feed() {
-  const location = useLocation();
-  const questionID = location.state;
+
+  const location = useLocation()
+  const questionID = location.state
   const [email, setEmail] = useState("")
   const [pfp,setPfp] = useState('')
   const [username,setUsername] = useState('')
-  const handleAskQuestionSubmit = async (e) => {
-    e.preventDefault()
-    const currentTime = new Date();
-    const text = e.target.elements.questionTextarea.value;
-    if (text === '') return
-    try {
-      var response = ""
-      if (type.type === 'answer') {
-        response = await axios.post('http://localhost:5000/feed/answer', {
-          answer: text,
-          questionID,
-          author: email,
-          time: currentTime,
-          likes: 0,
-          dislikes: 0
-        })
-      } else if (type.type === 'Comment') {
-        response = await axios.post('http://localhost:5000/feed/comment', {
-          comment: text,
-          answerID: type.id,
-          author: email,
-          time: currentTime,
-          likes: 0,
-          dislikes: 0
-        })
-      } else {
-        response = await axios.post('http://localhost:5000/feed/reply', {
-          reply: text,
-          commentID: type.id,
-          author: email,
-          time: currentTime,
-          likes: 0,
-          dislikes: 0
-        })
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  };
   const [questions, setQuestions] = React.useState([])
   const [type, setType] = React.useState({ type: 'answer', id: questionID })
+
+  const handleAskQuestionSubmit = async (e) => {
+    e.preventDefault()
+    const currentTime = new Date()
+    const text = e.target.elements.questionTextarea.value
+    if (text === '') return
+    var response = ""
+    const payload = { 
+      author:email,
+      time:currentTime,
+      likes:0,
+      dislikes:0
+    }
+    if (type.type === 'answer') response = await axios.post('http://localhost:5000/feed/answer', {answer: text,questionID,...payload})
+    else if (type.type === 'Comment') response = await axios.post('http://localhost:5000/feed/comment', {comment: text,answerID: type.id,...payload})
+    else response = await axios.post('http://localhost:5000/feed/reply', {reply: text,commentID: type.id,...payload})
+  }
+
   React.useLayoutEffect(() => {
-    const storedData = localStorage.getItem('email');
+    const storedData = localStorage.getItem('email')
     if (storedData) {
-      setEmail(storedData);
+      setEmail(storedData)
     }
     const FetchData = async () => {
       try {
-        var response = await axios.post('http://localhost:5000/feed/viewQuestion', { questionID });
+        var response = await axios.post('http://localhost:5000/feed/viewQuestion', { questionID })
         setQuestions(response.data) 
-        console.log(response.data)
         response = await axios.post("http://localhost:5000/profile/getUser",{email:response.data.question.author})
-        // console.log(response.data,'fgfd')
-        // console.log(response)
         setUsername(response.data.username)
         setPfp(response.data.profilePicture)
       } catch (error) {
-        console.log('Error fetching data:', error);
+        console.error('Error fetching data:', error)
       }
     }
     FetchData()
   }, [])
+  
   if (questions.length === 0) {
-    return (<div className='loading-page'>
-      <div class="center">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
-    </div>)
+    return <LoadingWave />
   }
   else {
     const data = questions.answers.map(question => <FullQuestion data={question} setType={setType} />)
@@ -119,7 +72,6 @@ export default function Feed() {
             paddingBottom: '16px'
           }}
         >
-          <Navbar />
           <Container className="py-5 h-100 mt-3 scrollbarfeed" style={{ overflow: 'auto' }}>
             <Row>
               <Sidebar />
@@ -128,16 +80,7 @@ export default function Feed() {
                   <Card.Body >
                     <h4>{questions.question.question}</h4>
                     <small className="">
-                      {/* User Avatar */}
-                      <img
-                        src={pfp}
-                        alt="User Avatar"
-                        className="rounded-circle me-2"
-                        style={{ width: '30px', height: '30px' }}
-                      />
-                      <Link to="/profile" className='text-white-50' style={{ textDecoration: 'none' }}>
-                        {username} | {formattedDateTime(questions.question.time)}
-                      </Link>
+                      <UserAvatar pfp={pfp} username={username} time={questions.question.time}/>
                     </small>
                   </Card.Body>
 
@@ -159,8 +102,7 @@ export default function Feed() {
                         />
 
                       </Form.Group>
-                      <Button variant="primary" type="submit" className='mt-2'>                      Submit
-                      </Button>
+                      <Button variant="primary" type="submit" className='mt-2'>Submit</Button>
                     </Form>
                   </Card.Body>
                 </Card>
@@ -169,8 +111,7 @@ export default function Feed() {
           </Container>
         </section>
 
-        <Footer />
       </div>
-    );
+    )
   }
 }

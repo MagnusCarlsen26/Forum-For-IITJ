@@ -16,7 +16,6 @@ router.post( '/register' , async(req,res) => {
     }else{
       const user = await UserModel.findOne({username});
       const mail = await UserModel.findOne({email})
-      console.log(username)
       if (user) {
           return res.json({message:"Username already taken."})
       } 
@@ -50,9 +49,8 @@ router.post( '/otp' , async( req,res ) => {
     
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
-        console.log(error);
+        console.error(error);
       } else {
-        console.log('Email sent: ' + info.response);
       }
     });
     res.json({otp})

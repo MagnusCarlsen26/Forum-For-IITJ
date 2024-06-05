@@ -24,7 +24,6 @@ function ForgotPwd({email}) {
         const response = await axios.post("http://localhost:5000/auth/forgot",{
             email:code
         })
-        console.log(response.data.message)
         if (response.data.message == 'Yes') {setIsEmail(true)}
         else {setValidity('in');setError('Email is Invalid')}
     }

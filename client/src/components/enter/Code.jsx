@@ -9,7 +9,6 @@ import bg from './../../img/Login/bg-login.jpg'
 const Code = ({username,email,password}) => {
     const [otp,setOtp] = React.useState(-1)
     useEffect  ( () => {
-        console.log(email)
         const fetchData = async() => {
             const response = await axios.post("http://localhost:5000/auth/otp",{
                 email
@@ -29,7 +28,6 @@ const Code = ({username,email,password}) => {
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        console.log(otp,parseInt(code,10),'code.jsx')
         if (otp == -1) 
         {
             setValidity('in')
@@ -52,7 +50,7 @@ const Code = ({username,email,password}) => {
                 }
                 catch(err)
                 {
-                    console.log(err)
+                    console.error(err)
                 }
             }else{
                 setValidity('in')

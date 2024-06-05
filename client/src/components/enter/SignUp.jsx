@@ -9,6 +9,7 @@ import Code from './Code'
 import bg from './../../img/Login/bg-login.jpg'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../../App'
+
 const SignUp = () => {
     const [validity,setValidity] = React.useState( ['f','f','f','f'] ) 
     const [svgcolor,setSvgcolor] = React.useState( [false,false,false,false] )
@@ -53,7 +54,6 @@ const SignUp = () => {
         if (bool===0) ans = 'f'
         if (bool===1) ans = ''
 
-        console.log("HERE")
         setError( (item) => {var newItem = item.slice() ; newItem[1] = "Enter an IITJ email.";return newItem } )
         setValidity( (item) => {var newItem = item.slice() ;newItem[1] = ans; return newItem} )
         setSvgcolor( (item) => {var newItem = item.slice() ; newItem[1] = ans1;return newItem} )
@@ -104,7 +104,6 @@ const SignUp = () => {
                     password,
                     commit:false
                 })
-                console.log(response.data.message)
                 if (response.data.message == "Username already taken.") {
                     setError( (item) => {var newItem = item.slice() ; newItem[0] = "Username already taken.";return newItem} )
                     setValidity( (item) => {var newItem = item.slice() ; newItem[0] = 'in';return newItem} )
@@ -119,11 +118,9 @@ const SignUp = () => {
             }
         }
         catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
-    console.log(validity[0] === 'f' &&  validity[1] === '' && validity[2] === '' && validity[3] === '')
-    console.log(validity)    
 }
      
     return (

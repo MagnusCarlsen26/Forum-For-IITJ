@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-// import './../../css/enter/enter.css'
-// import './feed.css'
-// import Footer from '../../footer';
+import React from 'react';
+
 export default function NavBar(){
     return (
         <footer className="bg-dark text-center text-white">
