@@ -9,6 +9,7 @@ import Code from './Code'
 import bg from './../../img/Login/bg-login.jpg'
 import { Link } from 'react-router-dom'
 import { AppContext } from '../../App'
+
 const SignUp = () => {
     const [validity,setValidity] = React.useState( ['f','f','f','f'] ) 
     const [svgcolor,setSvgcolor] = React.useState( [false,false,false,false] )

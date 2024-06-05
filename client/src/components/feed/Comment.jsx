@@ -26,8 +26,13 @@ function Comment({ comment, replies, setType }) {
         noOfLikes={comment.likes}
         noOfDisLikes={comment.dislikes}
         type={'Reply'}
+        typeofRequest={'comment'}
         id={comment._id}
         setType={setType}
+        email={email}
+        setLike={setLike}
+        currLikes={comment.likes}
+        currDisLikes={comment.dislikes}
       />
       {replies.map(reply => <Reply reply={reply} />)}
     </div>

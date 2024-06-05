@@ -4,16 +4,16 @@ import { BsChat } from 'react-icons/bs'
 import onLike from './onLike'
 import onDisLike from './onDisLike'
 
-export default  function LikeDislikeButton ({like,noOfLikes,noOfDisLikes,type,id,setType,data,email,setLike,currLikes,currDisLikes}) {
+export default  function LikeDislikeButton ({like,noOfLikes,noOfDisLikes,type,typeofRequest,id,setType,email,setLike,currLikes,currDisLikes}) {
   console.log(currDisLikes)
-  return (
+  return ( 
     <>
     
       <Button
         variant={`outline-danger${like.like === 1 ? ' active' : ''}`}
         size="sm"
         className="m-1"
-        onClick={() => onLike(id,email,type,like,setLike,currLikes,currDisLikes)}
+        onClick={() => onLike(id,email,typeofRequest,like,setLike,currLikes,currDisLikes)}
       >
         {like.like === 1 ? svg.LikeFilled : svg.LikeNotFilled} {noOfLikes}
       </Button>
@@ -21,7 +21,7 @@ export default  function LikeDislikeButton ({like,noOfLikes,noOfDisLikes,type,id
         variant={`outline-secondary${ like.dislike === 1 ? ' active' : ''}`} 
         size="sm" 
         className="m-1" 
-        onClick={() => onDisLike(id,email,type,like,setLike,currLikes,currDisLikes)}
+        onClick={() => onDisLike(id,email,typeofRequest,like,setLike,currLikes,currDisLikes)}
       >
         { like.dislike === 1 ? svg.DislikeFilled : svg.DislikeNotFilled}  {noOfDisLikes}
       </Button>

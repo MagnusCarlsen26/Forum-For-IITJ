@@ -26,7 +26,7 @@ function Reply({ reply }) {
         noOfDisLikes={reply.dislikes}
         data={reply}
         email={email}
-        type={"reply"}
+        typeofRequest={"reply"}
         setLike={setLike}
         id={reply._id}
         currLikes={reply.likes}

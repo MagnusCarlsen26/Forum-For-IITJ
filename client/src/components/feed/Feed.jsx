@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './feed.css'
-import { Container, Row, Col, Card, Nav, NavDropdown, Button, Form } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import Questions from './Questions'
