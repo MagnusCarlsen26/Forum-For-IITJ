@@ -3,7 +3,7 @@ import Input from './../enter/Input'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import bg from './../../img/Login/bg-login.jpg'
-import { Container, Row, Col, Card, Nav, Navbar, NavDropdown, Button, Form } from 'react-bootstrap'
+import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import { FaFacebook, FaTwitter, FaGoogle, FaInstagram, FaLinkedin, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import axios from 'axios'
 

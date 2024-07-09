@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Card, Button } from 'react-bootstrap';
 import './../../css/enter/enter.css'
 import Comment from './Comment'
-import formattedDateTime from './../../utils/formattedDateTime'
 import responseUtil from './../../utils/responseUtil'
 import UserAvatar from './../../utils/UserAvatar'
 import LikeDislikeButton from './../../utils/LikeDislikeButton'
-import onLike from './../../utils/onLike'
-import onDisLike from './../../utils/onDisLike'
 
 function FullQuestion({ data, setType }) {
 

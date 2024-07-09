@@ -8,7 +8,6 @@ import Input from './Input'
 import Code from './Code'
 import bg from './../../img/Login/bg-login.jpg'
 import { Link } from 'react-router-dom'
-import { AppContext } from '../../App'
 
 const SignUp = () => {
     const [validity,setValidity] = React.useState( ['f','f','f','f'] ) 

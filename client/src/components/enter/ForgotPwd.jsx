@@ -1,5 +1,5 @@
 import svg from './../../svg'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './../../css/enter/enter.css'
 import axios from 'axios'
 import Input from './Input'
@@ -12,7 +12,6 @@ function ForgotPwd({email}) {
     const [validity, setValidity] = useState('f')
     const [error,setError] = useState('')
     const [isEmail,setIsEmail] = useState(false)
-    const navigate = useNavigate()
 
     const codeChange = (e) => {
         const userCode = e.target.value;

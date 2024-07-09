@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Button, Form } from 'react-bootstrap'
-import { BsChat } from 'react-icons/bs'
+import { Card, Button } from 'react-bootstrap'
 import { FaRegCommentDots } from "react-icons/fa"
 import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import svg from './../../svg'
 import './../../css/enter/enter.css'
 import axios from 'axios'
 import Comment from './Comment'
-import formattedDateTime from './../../utils/formattedDateTime'
 import UserAvatar from './../../utils/UserAvatar'
 
 function Questions({ data }) {
   const navigate = useNavigate()
   const [expandedPosts, setExpandedPosts] = useState([])
-  const [showCommentForm, setShowCommentForm] = useState(false)
   const [likeStatus, setLikeStatus] = useState(false) 
   const [dislikeStatus, setDislikeStatus] = useState(false)
   const [pfp,setPfp] = useState('')

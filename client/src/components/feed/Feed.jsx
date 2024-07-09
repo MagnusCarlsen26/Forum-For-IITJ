@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './feed.css'
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
@@ -6,7 +6,6 @@ import axios from 'axios'
 import Questions from './Questions'
 import Sidebar from './Sidebar'
 import LoadingWave from './../../utils/LoadingWave'
-import formattedDateTime from './../../utils/formattedDateTime'
   
 export default function Feed() {
   const location = useLocation()

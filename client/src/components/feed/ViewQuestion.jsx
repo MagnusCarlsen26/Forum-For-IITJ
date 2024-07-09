@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Card, Nav, NavDropdown, Button, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import FullQuestion from './Answer'
 import Sidebar from './Sidebar'
-import formattedDateTime from './../../utils/formattedDateTime'
 import LoadingWave from './../../utils/LoadingWave'
 import UserAvatar from './../../utils/UserAvatar'
 

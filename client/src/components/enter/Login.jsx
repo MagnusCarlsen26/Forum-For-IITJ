@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import Input from './Input'
 import axios from 'axios'
-import { AppContext } from '../../App'
+
 const Login = () => {
     const navigate = useNavigate()
     const [password,setpassword] = React.useState("")

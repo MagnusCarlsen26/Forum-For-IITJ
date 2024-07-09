@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Reply from './Reply'
-import formattedDateTime from './../../utils/formattedDateTime'
 import responseUtil from './../../utils/responseUtil'
 import UserAvatar from './../../utils/UserAvatar'
 import LikeDislikeButton from './../../utils/LikeDislikeButton'
-import onLike from './../../utils/onLike'
-import onDisLike from './../../utils/onDisLike'
 
 function Comment({ comment, replies, setType }) {
   const [email, setEmail] = useState("")

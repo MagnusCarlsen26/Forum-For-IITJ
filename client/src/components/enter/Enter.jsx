@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import bg from './../../img/Login/bg-login.jpg'
 import Login from './Login'
-import SignUp from './SignUp'
+
 const Enter = () => {
     return (
         <div className="container-fluid " style={{ height: '100vh' }}>

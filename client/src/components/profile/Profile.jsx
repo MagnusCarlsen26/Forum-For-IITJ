@@ -1,18 +1,15 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, Nav, NavDropdown, Button, Form } from 'react-bootstrap'
-import { BiPencil, BiSearch, BiDislike } from 'react-icons/bi'
-import { FaFacebookF, FaTwitter, FaGoogle, FaInstagram, FaLinkedin, FaLinkedinIn, FaGithub } from 'react-icons/fa'
+import { Row, Col } from 'react-bootstrap'
+import { BiPencil } from 'react-icons/bi'
+import { FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Edit from './Edit'
-import Navbar from '../../Navbar'
-import Footer from '../../Footer'
 import './profile.css'
 import { useLocation } from 'react-router-dom'
-import Sidebar from '../feed/Sidebar'
+
 export default function Profile() {
   const location = useLocation()
-  const otherEmail = location.state
 
   const [profile, setProfile] = useState({
     username: '',
